@@ -102,19 +102,7 @@ class CardsTreeview extends Treeview {
 	 * @protected
 	 */
 	focus_(nodeObj) {
-
-		let focusedNode = this.element.querySelector('.focused');
-
-		if (focusedNode) {
-			focusedNode.classList.remove('focused');
-		}
-
-		if (!nodeObj.id) {
-			return;
-		}
-
 		if (nodeObj) {
-			this.element.querySelector('[data-treeitemid="' + nodeObj.id + '"]').classList.add('focused');
 			this.element.querySelector('[data-treeitemid="' + nodeObj.id + '"] .card').focus();
 		}
 	}
