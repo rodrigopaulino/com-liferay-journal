@@ -18,10 +18,16 @@ import templates from './CardsTreeView.soy';
  */
 class CardsTreeview extends Treeview {
 
+	/**
+	 * @inheritDoc
+	 */
 	created() {
 		this.expandSelectedNodesParentNodes_(this.nodes);
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	attached() {
 		this.addSelectedNodes_(this.nodes);
 	}
@@ -179,37 +185,6 @@ class CardsTreeview extends Treeview {
 	}
 
 	/**
-	 * Selects specific node.
-	 *
-	 * @param nodeId ID of node to select.
-	 * @protected
-	 */
-	selectNode_(nodeId) {
-		if (this.multiSelection) {
-			if (this.selectedNodes.indexOf(nodeId + ',') !== -1) {
-				this.selectedNodes = this.selectedNodes.replace(nodeId + ',', '');
-			}
-			else {
-				this.selectedNodes += nodeId + ',';
-			}
-		}
-		else {
-			this.deselectAll_(this.nodes);
-
-			this.selectedNodes = ',' + nodeId + ',';
-		}
-	}
-
-	/**
-	 * This is called when one of this tree view's nodes toggler is clicked.
-	 * @param {!Event} event
-	 * @protected
-	 */
-	handleNodeTogglerClicked_(event) {
-		this.toggleExpandedState_(event.delegateTarget.parentNode.parentNode.parentNode);
-	}
-
-	/**
 	 * This is called when one of this tree view's nodes receives a keypress.
 	 * Depending on the pressed key, the tree will:
 	 * - ENTER or SPACE: Select the current node
@@ -237,6 +212,37 @@ class CardsTreeview extends Treeview {
 		}
 		else if (event.keyCode === 13 || event.keyCode === 32) {
 			this.handleNodeClicked_(event);
+		}
+	}
+
+	/**
+	 * This is called when one of this tree view's nodes toggler is clicked.
+	 * @param {!Event} event
+	 * @protected
+	 */
+	handleNodeTogglerClicked_(event) {
+		this.toggleExpandedState_(event.delegateTarget.parentNode.parentNode.parentNode);
+	}
+
+	/**
+	 * Selects specific node.
+	 *
+	 * @param nodeId ID of node to select.
+	 * @protected
+	 */
+	selectNode_(nodeId) {
+		if (this.multiSelection) {
+			if (this.selectedNodes.indexOf(nodeId + ',') !== -1) {
+				this.selectedNodes = this.selectedNodes.replace(nodeId + ',', '');
+			}
+			else {
+				this.selectedNodes += nodeId + ',';
+			}
+		}
+		else {
+			this.deselectAll_(this.nodes);
+
+			this.selectedNodes = ',' + nodeId + ',';
 		}
 	}
 
